@@ -3,6 +3,7 @@ package com.iesamml.androidtraining2.features.login.presentation
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -35,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
         actionValidate.setOnClickListener {
            val userName = findViewById<EditText>(R.id.input_username).text.toString()
            val password = findViewById<EditText>(R.id.input_password).text.toString()
+            val remerberIsChecked=findViewById<CheckBox>(R.id.check_remember).isChecked
             val isValid=loginViewModel.validateClicked(userName,password)
             if (isValid) {
                 Snackbar.make (findViewById<View>(R.id.main),
