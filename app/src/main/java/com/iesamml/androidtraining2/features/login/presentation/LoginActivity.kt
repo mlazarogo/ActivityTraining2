@@ -31,24 +31,36 @@ class LoginActivity : AppCompatActivity() {
 
 
     }
-    private fun setupView(){
+    private fun setupView() {
         val actionValidate = findViewById<Button>(R.id.action_validate)
         actionValidate.setOnClickListener {
-           val userName = findViewById<EditText>(R.id.input_username).text.toString()
-           val password = findViewById<EditText>(R.id.input_password).text.toString()
-            val remerberIsChecked=findViewById<CheckBox>(R.id.check_remember).isChecked
-            val isValid=loginViewModel.validateClicked(userName,password, remerberIsChecked)
+            val userName = findViewById<EditText>(R.id.input_username).text.toString()
+            val password = findViewById<EditText>(R.id.input_password).text.toString()
+            val remerberIsChecked = findViewById<CheckBox>(R.id.check_remember).isChecked
+            val isValid = loginViewModel.validateClicked(userName, password, remerberIsChecked)
             if (isValid) {
-                Snackbar.make (findViewById<View>(R.id.main),
-                                            R.string.message_login_ok,
-                                             Snackbar.LENGTH_SHORT).show()
-            }else {
-                Snackbar.make (findViewById<View>(R.id.main),
+                Snackbar.make(
+                    findViewById<View>(R.id.main),
+                    R.string.message_login_ok,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            } else {
+                Snackbar.make(
+                    findViewById<View>(R.id.main),
                     R.string.message_login_fails,
-                    Snackbar.LENGTH_SHORT).show()
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
-
+    }
+override fun onResume(){
+    super.onResume()
+    //Para tratar el nulo usamos ? y para ejecutar un bloque de acciones
+    // si es no, usamos let (scape funcion)
+    loginViewModel.onResumed()?.let{username-> //renombramos it a username ->
+        //username (it) no es nulo
+        findViewById<EditText>(R.id.input_username).setText(username)
+}
 
     }
 
